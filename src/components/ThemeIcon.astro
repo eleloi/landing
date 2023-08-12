@@ -1,0 +1,88 @@
+<button onclick="handleToggleClick()" class="w-14 h-8 rounded-full bg-white flex items-center transition duration-300 focus:outline-none shadow" >
+
+    <div
+        id="themeToggle"
+        class="w-10 h-10 relative rounded-full transition duration-500 transform p-1 text-white">
+    </div>
+</button>
+
+<script is:inline>
+
+  const darkIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+  </svg>`
+
+  const lightIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+  </svg>`
+
+  function getUserStoredTheme() {
+    if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+      const localStorageTheme = localStorage.getItem('theme');
+      if (typeof localStorageTheme === 'string' && ['light', 'dark'].includes(localStorageTheme.toLowerCase())) {
+        return localStorageTheme;
+      }
+    }
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+    return 'light';
+  }
+
+  function setTheme(theme) {
+    if (!['light', 'dark'].includes(theme.toLowerCase()) ) {
+      console.error("Invalid theme")
+      return
+    }
+
+    const daisyThemes = {
+      'dark': 'dracula',
+      'light': 'lemonade'
+    }
+    const daisyTheme = daisyThemes[theme]
+    document.documentElement.setAttribute('data-theme', daisyTheme)
+
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+
+    localStorage.setItem('theme', theme)
+
+  }
+
+  function switchButton() {
+    const isDark = document.documentElement.classList.contains('dark')
+    const themeToggleButtonElement = document.querySelector('#themeToggle');
+
+    if (isDark) {
+      themeToggleButtonElement.classList.remove('bg-yellow-500','-translate-x-2')
+      themeToggleButtonElement.classList.add('bg-gray-700','translate-x-6')
+      setTimeout(() => {
+        themeToggleButtonElement.innerHTML = darkIcon
+      }, 250);
+    } else {
+      themeToggleButtonElement.classList.add('bg-yellow-500','-translate-x-2')
+      themeToggleButtonElement.classList.remove('bg-gray-700','translate-x-6')
+      setTimeout(() => {
+        themeToggleButtonElement.innerHTML = lightIcon
+      }, 250);
+    }
+
+  }
+
+  function handleToggleClick() {
+
+    const isDark = document.documentElement.classList.contains('dark')
+    const newTheme = isDark ? 'light' : 'dark'
+
+    setTheme(newTheme)
+    switchButton()
+  }
+
+  const theme = getUserStoredTheme()
+  setTheme(theme)
+  switchButton()
+
+</script>
