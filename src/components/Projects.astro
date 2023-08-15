@@ -1,0 +1,29 @@
+<section class="">
+  <div
+    class="sm:w-5/6 w-11/12 max-w-screen-lg mx-auto mt-12"
+  >
+    <h2 class="text-4xl font-bold py-4 animated text-zinc-300">
+      Projects
+    </h2>
+  </div>
+</section>
+
+<style>
+  section {
+    padding: 2rem 0;
+    min-height: 70vh;
+  }
+
+
+
+  .animated {
+    view-timeline-name: --scroll;
+    view-timeline-axis: block;
+
+    animation-timeline: --scroll;
+    animation-name: show;
+
+    animation-range: entry 25% cover 50%;
+    animation-fill-mode: both;
+  }
+</style>
