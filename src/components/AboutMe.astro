@@ -1,0 +1,76 @@
+<section>
+  <div
+    class="sm:w-5/6 w-11/12 max-w-screen-lg mx-auto mt-12 lg:p-0 lg:ml-auto 3xl:mx-auto 2xl:mr-[10%] xl:mr-[2%]"
+  >
+    <h2 class="text-4xl font-bold py-4 animated text-zinc-300">
+      Welcome to my portfolio!
+    </h2>
+    <article
+      class="prose-xl bg-neutral bg-opacity-80 p-4 rounded shadow-sm shadow-purple-300 text-neutral-content"
+    >
+      <p>
+        I'm a passionate software developer with a strong affinity for crafting
+        digital experiences.
+      </p>
+
+      <p>
+        I'm currently working at Generalitat de Catalunya, where I've been
+        honing my skills in <strong>frontend</strong>,
+        <strong>backend</strong>, and even delving into the world of <strong
+          >DevOps</strong
+        >.
+      </p>
+
+      <p>
+        While I can't showcase my current projects due to their nature, this
+        portfolio serves as a canvas to exhibit the diverse range of skills I've
+        acquired and the exciting projects I've undertaken beyond my
+        professional work.
+      </p>
+
+      <p>Join me as I bring to life the fusion of creativity and code!</p>
+    </article>
+  </div>
+</section>
+
+<style>
+  section {
+    padding: 2rem 0;
+    background-image: url('/aboutme.webp');
+    background-repeat: no-repeat;
+    height: 70vh;
+  }
+
+  @media (min-width: 1025px) {
+    section {
+      background-size: contain;
+    }
+  }
+  @media (max-width: 1024px) {
+    section {
+      background-size: cover;
+    }
+  }
+
+  @keyframes show {
+    from {
+      opacity: 0;
+      scale: 25%;
+    }
+    to {
+      opacity: 1;
+      scale: 100%;
+    }
+  }
+
+  .animated {
+    view-timeline-name: --scroll;
+    view-timeline-axis: block;
+
+    animation-timeline: --scroll;
+    animation-name: show;
+
+    animation-range: entry 25% cover 50%;
+    animation-fill-mode: both;
+  }
+</style>
