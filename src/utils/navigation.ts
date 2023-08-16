@@ -20,9 +20,14 @@ window.navigation.addEventListener('navigate', (event) => {
 
   event.intercept({
     async handler() {
+      console.log(toUrl.href)
       const body = await fetchPage(toUrl.href)
       document.startViewTransition(() => {
         document.body.innerHTML = body
+        if (toUrl.hash) {
+          const element = document.querySelector(toUrl.hash)
+          if (element) element.scrollIntoView()
+        }
       })
     },
   })

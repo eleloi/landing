@@ -1,15 +1,17 @@
+---
+import { getCollection } from 'astro:content'
+import ProjectIcon from '@/components/ProjectIcon.astro'
+
+const projectEntries = await getCollection('projects')
+---
+
 <section class="">
+  <a id="projects"></a>
   <div class="sm:w-5/6 w-11/12 max-w-screen-lg mx-auto mt-12">
     <h2 class="text-4xl font-bold py-4 animated text-zinc-300">Projects</h2>
+
     <div class="grid grid-cols-4 gap-4">
-      <a href="/projects/landing-page">
-        <img
-          src="https://res.cloudinary.com/daily-now/image/upload/f_auto,q_auto/v1/posts/fc1755ba89982863b9d1790cc1639bd0?_a=AQAEufR"
-          alt="project landing page"
-          class="w-full"
-          style="view-transition-name: image"
-        />
-      </a>
+      {projectEntries.map((project) => <ProjectIcon project={project} />)}
     </div>
   </div>
 </section>

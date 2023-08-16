@@ -10,6 +10,7 @@ const projectCollection = defineCollection({
       alt: z.string(),
     }),
     highlights: z.string(),
+    link: z.string(),
   }),
 })
 

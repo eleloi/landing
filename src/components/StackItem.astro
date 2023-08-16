@@ -1,0 +1,24 @@
+---
+import { Icon } from 'astro-icon'
+interface Props {
+  tech: string
+}
+const { tech } = Astro.props
+
+interface IconSettings {
+  pack: string
+  name: string
+}
+const icons: { [key: string]: IconSettings } = {
+  astro: { pack: 'vscode-icons', name: 'file-type-astro' },
+  svelte: { pack: 'vscode-icons', name: 'file-type-svelte' },
+  default: { pack: 'grommet-icons', name: 'technology' },
+}
+
+const icon = icons[tech.toLowerCase()] || icons.default
+---
+
+<div class="flex flex-col justify-center items-center">
+  <Icon class="w-[50px]" pack={icon.pack} name={icon.name} />
+  <p class="text-sm">{tech}</p>
+</div>

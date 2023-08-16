@@ -60,6 +60,11 @@ import '@fontsource-variable/bitter'
 </style>
 
 <script>
+  import { getUserStoredTheme, setTheme } from '@/utils/theme.js'
   import { startViewTransition } from '@/utils/navigation.js'
+
   startViewTransition()
+
+  const theme = getUserStoredTheme()
+  setTheme(theme)
 </script>

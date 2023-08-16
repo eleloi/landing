@@ -1,0 +1,21 @@
+---
+import type { CollectionEntry } from 'astro:content'
+
+interface Props {
+  project: CollectionEntry<'projects'>
+}
+
+const { project } = Astro.props
+---
+
+<div class="flex flex-col justify-center items-center">
+  <a href="/projects/landing-page">
+    <img
+      src={project.data.image.src}
+      alt={project.data.image.alt}
+      class="w-full"
+      style=`view-transition-name: image-${project.slug}`
+    />
+  </a>
+  <h2>{project.data.title}</h2>
+</div>

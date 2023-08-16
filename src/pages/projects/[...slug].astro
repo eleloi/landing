@@ -1,14 +1,19 @@
 ---
+import { getCollection, CollectionEntry } from 'astro:content'
+
 import Layout from '@/layouts/Layout.astro'
-import { getCollection } from 'astro:content'
+import StackItem from '@/components/StackItem.astro'
 
 export async function getStaticPaths() {
   const projectEntries = await getCollection('projects')
-
   return projectEntries.map((project) => ({
     params: { slug: project.slug },
     props: { project },
   }))
+}
+
+interface Props {
+  project: CollectionEntry<'projects'>
 }
 
 const { project } = Astro.props
@@ -16,13 +21,42 @@ const { Content } = await project.render()
 ---
 
 <Layout title="eleloi.dev">
-  <article>
-    <a href="/">Back</a>
-    <h1>{project.title}</h1>
-    <img
-      src="https://res.cloudinary.com/daily-now/image/upload/f_auto,q_auto/v1/posts/fc1755ba89982863b9d1790cc1639bd0?_a=AQAEufR"
-      style="view-transition-name: image"
-    />
-    <Content />
+  <article
+    class="sm:w-5/6 w-11/12 max-w-screen-lg mx-auto mt-12 lg:p-0 lg:ml-auto 3xl:mx-auto 2xl:mr-[10%] xl:mr-[2%]"
+  >
+    <button type="button" class="btn btn-accent">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        ><path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M6 22.8787C4.34315 22.8787 3 21.5355 3 19.8787V9.87866C3 9.84477 3.00169 9.81126 3.00498 9.77823H3C3 9.20227 3.2288 8.64989 3.63607 8.24262L9.87868 2.00002C11.0502 0.828445 12.9497 0.828445 14.1213 2.00002L20.3639 8.24264C20.7712 8.6499 21 9.20227 21 9.77823H20.995C20.9983 9.81126 21 9.84477 21 9.87866V19.8787C21 21.5355 19.6569 22.8787 18 22.8787H6ZM12.7071 3.41423L19 9.70713V19.8787C19 20.4309 18.5523 20.8787 18 20.8787H15V15.8787C15 14.2218 13.6569 12.8787 12 12.8787C10.3431 12.8787 9 14.2218 9 15.8787V20.8787H6C5.44772 20.8787 5 20.4309 5 19.8787V9.7072L11.2929 3.41423C11.6834 3.02371 12.3166 3.02371 12.7071 3.41423Z"
+          fill="currentColor"></path></svg
+      >
+      <a href="/#projects">Back</a>
+    </button>
+
+    <div class="grid grid-cols-2 gap-4 mt-12">
+      <div class="flex flex-col gap-4">
+        <img
+          src={project.data.image.src}
+          style=`view-transition-name: image-${project.slug}`
+        />
+        <a class="btn btn-primary" href={project.data.link} target="_blank"
+          >Visit this project</a
+        >
+      </div>
+      <div class="w-full text-center">
+        <h2 class="text-3xl font-bold">{project.data.title}</h2>
+        <div class="flex gap-4 mt-4 justify-end border">
+          {project.data.stack.map((tech) => <StackItem tech={tech} />)}
+        </div>
+      </div>
+      <Content />
+    </div>
   </article>
 </Layout>
