@@ -1,0 +1,28 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import { getCollection } from 'astro:content'
+
+export async function getStaticPaths() {
+  const projectEntries = await getCollection('projects')
+
+  return projectEntries.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }))
+}
+
+const { project } = Astro.props
+const { Content } = await project.render()
+---
+
+<Layout title="eleloi.dev">
+  <article>
+    <a href="/">Back</a>
+    <h1>{project.title}</h1>
+    <img
+      src="https://res.cloudinary.com/daily-now/image/upload/f_auto,q_auto/v1/posts/fc1755ba89982863b9d1790cc1639bd0?_a=AQAEufR"
+      style="view-transition-name: image"
+    />
+    <Content />
+  </article>
+</Layout>
